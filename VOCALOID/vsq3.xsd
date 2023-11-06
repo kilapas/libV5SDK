@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema id="vsq3"
+    xmlns="http://www.yamaha.co.jp/vocaloid/schema/vsq3/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://www.yamaha.co.jp/vocaloid/schema/vsq3/"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified">
+  <xsd:element name="vsq3">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="vender" type="typeStr256" />
+        <xsd:element name="version" type="typeStrVersion" />
+        <xsd:element ref="vVoiceTable" />
+        <xsd:element ref="mixer" />
+        <xsd:element ref="masterTrack" />
+        <xsd:element ref="vsTrack" maxOccurs="16" />
+        <xsd:element ref="seTrack" />
+        <xsd:element ref="karaokeTrack" />
+        <xsd:element ref="aux" minOccurs="0" maxOccurs="unbounded" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="vVoiceTable">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="vVoice" maxOccurs="unbounded" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="vVoice">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="vBS" type="typeInt0to127" />
+        <xsd:element name="vPC" type="typeInt0to127" />
+        <xsd:element name="compID" type="typeComponentID" />
+        <xsd:element name="vVoiceName" type="typeStr256" />
+        <xsd:element ref="vVoiceParam" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="vVoiceParam">
+    <xsd:complexType>
+      <xsd:all>
+        <xsd:element name="bre" type="typeIntM127to127" />
+        <xsd:element name="bri" type="typeIntM127to127" />
+        <xsd:element name="cle" type="typeIntM127to127" />
+        <xsd:element name="gen" type="typeIntM127to127" />
+        <xsd:element name="ope" type="typeIntM127to127" />
+      </xsd:all>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="mixer">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="masterUnit" />
+        <xsd:element ref="vsUnit" maxOccurs="16" />
+        <xsd:element ref="seUnit" />
+        <xsd:element ref="karaokeUnit" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="masterUnit">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="outDev" type="xsd:short" />
+        <xsd:element ref="vstPlugin" minOccurs="0" maxOccurs="2" />
+        <xsd:element ref="vstPluginSR" minOccurs="0" maxOccurs="1" />
+        <xsd:element name="retLevel" type="xsd:int" />
+        <xsd:element name="vol" type="xsd:int" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="vsUnit">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="vsTrackNo" type="typeInt0to127" />
+        <xsd:element name="inGain" type="xsd:int" />
+        <xsd:element ref="vstPlugin" minOccurs="0" maxOccurs="2" />
+        <xsd:element name="sendLevel" type="xsd:int" />
+        <xsd:element name="sendEnable" type="typeSwitch" />
+        <xsd:element name="mute" type="typeSwitch" />
+        <xsd:element name="solo" type="typeSwitch" />
+        <xsd:element name="pan" type="xsd:int" />
+        <xsd:element name="vol" type="xsd:int" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="seUnit">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="inGain" type="xsd:int" />
+        <xsd:element ref="vstPlugin" minOccurs="0" maxOccurs="2" />
+        <xsd:element name="sendLevel" type="xsd:int" />
+        <xsd:element name="sendEnable" type="typeSwitch" />
+        <xsd:element name="mute" type="typeSwitch" />
+        <xsd:element name="solo" type="typeSwitch" />
+        <xsd:element name="pan" type="xsd:int" />
+        <xsd:element name="vol" type="xsd:int" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="karaokeUnit">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="inGain" type="xsd:int" />
+        <xsd:element ref="vstPlugin" minOccurs="0" maxOccurs="2" />
+        <xsd:element name="mute" type="typeSwitch" />
+        <xsd:element name="solo" type="typeSwitch" />
+        <xsd:element name="vol" type="xsd:int" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="vstPlugin">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="vstPluginID" type="typeVstPluginID" />
+        <xsd:element name="vstPluginName" type="typeStr256" />
+        <xsd:element name="vstSDKVersion" type="typeVstSDKVersion" />
+        <xsd:element name="vstParamNum" type="xsd:int" />
+        <xsd:element name="vstParamVal" minOccurs="0" maxOccurs="1" >
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="val" type="xsd:int" minOccurs="0" maxOccurs="unbounded" />
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="vstPresetNo" type="xsd:int" minOccurs="0" maxOccurs="1" />
+        <xsd:element name="enable" type="typeSwitch" />
+        <xsd:element name="bypass" type="typeSwitch" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="vstPluginSR">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="vstPluginID" type="typeVstPluginID" />
+        <xsd:element name="vstPluginName" type="typeStr256" />
+        <xsd:element name="vstSDKVersion" type="typeVstSDKVersion" />
+        <xsd:element name="vstParamNum" type="xsd:int" />
+        <xsd:element name="vstParamVal" minOccurs="0" maxOccurs="1" >
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="val" type="xsd:int" minOccurs="0" maxOccurs="unbounded" />
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="vstPresetNo" type="xsd:int" minOccurs="0" maxOccurs="1" />
+        <xsd:element name="enable" type="typeSwitch" />
+        <xsd:element name="bypass" type="typeSwitch" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="masterTrack">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="seqName" type="typeStr256" />
+        <xsd:element name="comment" type="typeStr256" />
+        <xsd:element name="resolution" type="xsd:unsignedShort" />
+        <xsd:element name="preMeasure" type="typeInt0to127" />
+        <xsd:element ref="timeSig" maxOccurs="unbounded" />
+        <xsd:element ref="tempo" maxOccurs="unbounded" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="timeSig">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="posMes" type="xsd:int" />
+        <xsd:element name="nume" type="xsd:unsignedByte" />
+        <xsd:element name="denomi" type="xsd:unsignedByte" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="tempo">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="posTick" type="xsd:int" />
+        <xsd:element name="bpm" type="xsd:int" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="vsTrack">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="vsTrackNo" type="typeInt0to127" />
+        <xsd:element name="trackName" type="typeStr256" />
+        <xsd:element name="comment" type="typeStr256" />
+        <xsd:choice minOccurs="0" maxOccurs="unbounded" >
+          <xsd:element ref="musicalPart" />
+          <xsd:element ref="prosodyPart" />
+        </xsd:choice>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="musicalPart">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="posTick" type="xsd:int" />
+        <xsd:element name="playTime" type="xsd:int" />
+        <xsd:element name="partName" type="typeStr256" />
+        <xsd:element name="comment" type="typeStr256" />
+        <xsd:element ref="stylePlugin" />
+        <xsd:element ref="partStyle" minOccurs="0" />
+        <xsd:element ref="phraseStyle" minOccurs="0" maxOccurs="unbounded" />
+        <xsd:element ref="singer" maxOccurs="unbounded" />
+        <xsd:element ref="mCtrl" minOccurs="0" maxOccurs="unbounded" />
+        <xsd:element ref="sCtrl" minOccurs="0" maxOccurs="unbounded" />
+        <xsd:element ref="note" minOccurs="0" maxOccurs="unbounded" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="stylePlugin">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="stylePluginID" type="typeStrGUID" />
+        <xsd:element name="stylePluginName" type="typeStr256" />
+        <xsd:element name="version" type="typeStrVersion" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="partStyle">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="attr" type="typeParamAttr" maxOccurs="unbounded" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="phraseStyle">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="posTick" type="xsd:int" />
+        <xsd:element name="attr" type="typeParamAttr" maxOccurs="unbounded" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="singer">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="posTick" type="xsd:int" />
+        <xsd:element name="vBS" type="typeInt0to127" />
+        <xsd:element name="vPC" type="typeInt0to127" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="mCtrl">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="posTick" type="xsd:int" />
+        <xsd:element name="attr" type="typeParamAttr" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="sCtrl">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="posTick" type="xsd:int" />
+        <xsd:element name="attr" type="typeParamAttr" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="note">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="posTick" type="xsd:int" />
+        <xsd:element name="durTick" type="xsd:int" />
+        <xsd:element name="noteNum" type="typeInt0to127" />
+        <xsd:element name="velocity" type="typeInt0to127" />
+        <xsd:element name="lyric" type="typeStr32" />
+        <xsd:element name="phnms" type="typePhonemes" />
+        <xsd:element ref="noteStyle" minOccurs="0" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="noteStyle">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="attr" type="typeParamAttr" minOccurs="0" maxOccurs="unbounded" />
+        <xsd:element ref="seqAttr" minOccurs="0" maxOccurs="unbounded" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="seqAttr">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="elem" maxOccurs="unbounded" >
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="posNrm" type="xsd:int" />
+              <xsd:element name="elv" type="xsd:int" />
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+      <xsd:attribute name="id" type="typeStr32" use="required" />
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="prosodyPart">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="posTick" type="xsd:int" />
+        <xsd:element name="playTime" type="xsd:int" />
+        <xsd:element name="partName" type="typeStr256" />
+        <xsd:element name="comment" type="typeStr256" />
+        <xsd:element ref="voice" maxOccurs="unbounded" />
+        <xsd:element ref="pCtrl" minOccurs="0" maxOccurs="unbounded" />
+        <xsd:element ref="pch" maxOccurs="unbounded" />
+        <xsd:element ref="dyn" maxOccurs="unbounded" />
+        <xsd:element ref="phnm" minOccurs="0" maxOccurs="unbounded" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="voice">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="posSec" type="xsd:int" />
+        <xsd:element name="vBS" type="typeInt0to127" />
+        <xsd:element name="vPC" type="typeInt0to127" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="pCtrl">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="posSec" type="xsd:int" />
+        <xsd:element name="attr" type="typeParamAttr" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="pch">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="posSec" type="xsd:int" />
+        <xsd:element name="pchVal" type="xsd:int" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="dyn">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="posSec" type="xsd:int" />
+        <xsd:element name="dynVal" type="xsd:int" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="phnm">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="posSec" type="xsd:int" />
+        <xsd:element name="durSec" type="xsd:int" />
+        <xsd:element name="phnmStr" type="typeStr32" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="seTrack">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="wavPart" minOccurs="0" maxOccurs="unbounded" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="karaokeTrack">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="wavPart" minOccurs="0" maxOccurs="unbounded" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="wavPart">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="posTick" type="xsd:int" />
+        <xsd:element name="playTime" type="xsd:int" />
+        <xsd:element name="partName" type="typeStr256" />
+        <xsd:element name="comment" type="typeStr256" />
+        <xsd:element name="sampleRate" type="typeSamplerate" />
+        <xsd:element name="sampleReso" type="typeResolution" />
+        <xsd:element name="channels" type="typeChannel" />
+        <xsd:element name="filePath" type="typeFilePath" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="aux">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="auxID" type="typeStr256" />
+        <xsd:element name="content" type="xsd:string" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:simpleType name="typeStr256">
+    <xsd:restriction base="xsd:string">
+      <xsd:maxLength value="256" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="typeStr32">
+    <xsd:restriction base="xsd:string">
+      <xsd:maxLength value="32" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="typeFilePath">
+    <xsd:restriction base="xsd:string">
+      <xsd:maxLength value="260" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="typeStrVersion">
+    <xsd:restriction base="xsd:string">
+      <xsd:maxLength value="15" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="typeStrGUID">
+    <xsd:restriction base="xsd:string">
+      <xsd:length value="36" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="typeComponentID">
+    <xsd:restriction base="xsd:string">
+      <xsd:length value="16" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="typeVstPluginID">
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="4" />
+      <xsd:maxLength value="36" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="typeVstSDKVersion">
+    <xsd:restriction base="xsd:unsignedByte">
+      <xsd:enumeration value="0" />
+      <xsd:enumeration value="2" />
+      <xsd:enumeration value="3" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="typeInt0to127">
+    <xsd:restriction base="xsd:unsignedByte">
+      <xsd:minInclusive value="0" />
+      <xsd:maxInclusive value="127" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="typeIntM127to127">
+    <xsd:restriction base="xsd:byte">
+      <xsd:minInclusive value="-127" />
+      <xsd:maxInclusive value="127" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="typeSwitch">
+    <xsd:restriction base="xsd:unsignedByte">
+      <xsd:minInclusive value="0" />
+      <xsd:maxInclusive value="1" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="typeChannel">
+    <xsd:restriction base="xsd:unsignedByte">
+      <xsd:minInclusive value="1" />
+      <xsd:maxInclusive value="2" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="typeSamplerate">
+    <xsd:restriction base="xsd:unsignedInt">
+      <xsd:enumeration value="44100" />
+      <xsd:enumeration value="48000" />
+      <xsd:enumeration value="96000" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="typeResolution">
+    <xsd:restriction base="xsd:unsignedByte">
+      <xsd:enumeration value="16" />
+      <xsd:enumeration value="24" />
+      <xsd:enumeration value="32" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="typeParamAttr">
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:int">
+        <xsd:attribute name="id" type="typeStr32" use="required" />
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="typePhonemes">
+    <xsd:simpleContent>
+      <xsd:extension base="typeStr32">
+        <xsd:attribute name="lock" type="typeSwitch" use="optional" />
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+</xsd:schema>
