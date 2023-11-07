@@ -19,7 +19,6 @@ WIVSMSequenceManager::WIVSMSequenceManager(void* pSeqMgr, const std::wstring& vs
 {
     if (!pSeqMgr)
         throw std::runtime_error("Not an unmanaged object.");
-
     
     _isCreateUnmanagedObj = isCreateUnmanagedObj;
     _cppObjPtr = pSeqMgr;

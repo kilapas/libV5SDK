@@ -110,12 +110,12 @@ void Destroy()
     }
 }
 
-DatabaseManager& getDatabaseManager()
+DatabaseManager& GetDatabaseManager()
 {
     return mDatabaseManager;
 }
 
-WIVSMSequenceManager& getSequenceManager()
+WIVSMSequenceManager& GetSequenceManager()
 {
     return mSequenceManager;
 }

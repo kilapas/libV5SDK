@@ -14,7 +14,7 @@ class WIVSMSequenceManager;
 bool Init(const std::wstring& vocaloidPath, std::string& error);
 void Destroy();
 
-vdm::DatabaseManager& getDatabaseManager();
-vsm::WIVSMSequenceManager& getSequenceManager();
+vdm::DatabaseManager& GetDatabaseManager();
+vsm::WIVSMSequenceManager& GetSequenceManager();
 
 };
